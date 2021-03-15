@@ -1,0 +1,31 @@
+{
+  "env": {
+    "commonjs": true,
+    "es2020": true,
+    "jest/globals": true
+  },
+  "extends": ["airbnb-base"],
+  "parserOptions": {
+    "ecmaVersion": 11,
+    "sourceType": "module"
+  },
+  "plugins": ["simple-import-sort", "jest"],
+  "rules": {
+    "simple-import-sort/imports": "error",
+    "comma-dangle": "off",
+    "no-console": "off",
+    "import/no-extraneous-dependencies": "off",
+    "consistent-return": "off",
+    "max-len": "off",
+    "no-plusplus": "off",
+    "import/prefer-default-export": "off",
+    "object-curly-newline": ["error", { "multiline": true }],
+    "implicit-arrow-linebreak": "off",
+    "no-param-reassign": "off",
+    "no-await-in-loop": "off",
+    "guard-for-in": "off",
+    "no-constant-condition": ["error", { "checkLoops": false }],
+    "max-classes-per-file": "off",
+    "class-methods-use-this": "off"
+  }
+}

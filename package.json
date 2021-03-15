@@ -1,0 +1,47 @@
+{
+  "name": "@ndustrial/sequelize-distributed-lock",
+  "version": "0.0.1",
+  "description": "Enables distributed locking for sequelize applications",
+  "main": "lib/index.js",
+  "scripts": {
+    "lint": "eslint ./ --cache --fix --ignore-pattern .gitignore",
+    "start:services": "docker-compose up --build -d",
+    "stop:services": "docker-compose down",
+    "test": "jest --watch --runInBand --detectOpenHandles"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ndustrialio/sequelize-distributed-lock.git"
+  },
+  "keywords": [
+    "sequelize",
+    "lock",
+    "distributed",
+    "migration"
+  ],
+  "author": "mgagliardo91",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ndustrialio/sequelize-distributed-lock/issues"
+  },
+  "homepage": "https://github.com/ndustrialio/sequelize-distributed-lock#readme",
+  "dependencies": {
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "eslint": "^7.22.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jest": "^24.3.1",
+    "eslint-plugin-simple-import-sort": "^7.0.0",
+    "faker": "^5.4.0",
+    "jest": "^26.6.3",
+    "jest-when": "^3.2.1",
+    "pg": "^8.5.1",
+    "sequelize": "^6.5.1"
+  },
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  }
+}
