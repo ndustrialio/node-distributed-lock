@@ -1,0 +1,25 @@
+name: Publish
+
+on:
+  workflow_dispatch:
+  release:
+    types: [released]
+
+env:
+  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Set Node version
+        run: echo "NODE_VERSION=$(cat .nvmrc)" > $GITHUB_ENV
+      - name: Set up Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - run: npm install
+      - uses: JS-DevTools/npm-publish@v1
+        with:
+          token: ${{ secrets.NPM_TOKEN }}

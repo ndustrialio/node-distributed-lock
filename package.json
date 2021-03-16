@@ -7,7 +7,7 @@
     "lint": "eslint ./ --cache --fix --ignore-pattern .gitignore",
     "start:services": "docker-compose up --build -d",
     "stop:services": "docker-compose down",
-    "test": "jest --runInBand --forceExit"
+    "test": "jest --coverage --runInBand --forceExit"
   },
   "repository": {
     "type": "git",
