@@ -1,0 +1,6 @@
+**.test.js
+test/
+docker-compose.yaml
+.nvmrc
+.vscode
+node_modules
