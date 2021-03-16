@@ -6,7 +6,7 @@ on:
     types: [released]
 
 env:
-  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+  NPM_TOKEN: ${{ secrets.NIO_NPM_TOKEN }}
 
 jobs:
   publish:
@@ -22,4 +22,4 @@ jobs:
       - run: npm install
       - uses: JS-DevTools/npm-publish@v1
         with:
-          token: ${{ secrets.NPM_TOKEN }}
+          token: ${{ env.NIO_NPM_TOKEN }}
