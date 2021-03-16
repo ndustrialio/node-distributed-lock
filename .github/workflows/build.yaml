@@ -11,7 +11,7 @@ env:
 
 jobs:
   build:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - name: Set Node version
@@ -39,8 +39,31 @@ jobs:
       - name: Stop services
         if: always()
         run: npm run stop:services
-      - name: Github Tag Bump
-        if: github.ref == 'refs/heads/main'
-        uses: mathieudutour/github-tag-action@v4.5
+  release:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v2
+      - name: Bump version
+        uses: TriPSs/conventional-changelog-action@v3
+        id: version
         with:
-          github_token: ${{ secrets.GH_ACCESS_TOKEN }} # Have to use PAT to trigger other flow
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          git-user-name: GitHub Actions
+          git-user-email: action@github.com
+          version-file: package.json,package-lock.json
+          version-path: version
+          preset: conventionalcommits
+          output-file: false
+      - name: Set new commit hash
+        run: echo "SHA=$(git rev-parse HEAD)" > $GITHUB_ENV
+      - name: Create release
+        uses: actions/create-release@v1
+        if: ${{ steps.version.outputs.skipped == 'false' }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.version.outputs.tag }}
+          release_name: ${{ steps.version.outputs.tag }}
+          body: ${{ steps.version.outputs.clean_changelog }}
+          commitish: ${{ env.SHA }}
