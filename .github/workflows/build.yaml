@@ -7,7 +7,7 @@ on:
     branches: [main]
 
 env:
-  NPM_TOKEN: ${{ secrets.NIO_NPM_TOKEN }}
+  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
 jobs:
   build:
