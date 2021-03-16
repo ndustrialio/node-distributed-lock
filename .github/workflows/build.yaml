@@ -59,7 +59,7 @@ jobs:
       - name: Set new commit hash
         run: echo "SHA=$(git rev-parse HEAD)" > $GITHUB_ENV
       - name: Create release
-        uses: actions/create-release@v1
+        uses: actions/create-release@v1.1.4
         if: ${{ steps.version.outputs.skipped == 'false' }}
         env:
           GITHUB_TOKEN: ${{ secrets.NIO_BOT_TOKEN }}
