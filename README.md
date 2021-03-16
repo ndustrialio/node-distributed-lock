@@ -1,11 +1,10 @@
 # Sequelize Distributed Lock
 
-[![Build Status](https://badgen.net/github/checks/ndustrialio/sequelize-distributed-lock/main)](https://github.com/ndustrialio/sequelize-distributed-lock/actions?query=workflow%3ABuild)
-[![npm (stable)](https://badgen.net/npm/v/sequelize-distributed-lock)](https://www.npmjs.com/package/sequelize-distributed-lock)
-[![npm (downloads)](https://badgen.net/npm/dm/sequelize-distributed-lock)](https://npmjs.com/package/sequelize-distributed-lock)
+[![Build Status](https://badgen.net/github/release/ndustrialio/sequelize-distributed-lock)](https://github.com/ndustrialio/sequelize-distributed-lock/actions?query=workflow%3ABuild)
+[![npm (stable)](https://badgen.net/npm/v/@ndustrial/sequelize-distributed-lock)](https://www.npmjs.com/package/@ndustrial/sequelize-distributed-lock)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
-Sequelize Distributed Lock (SDL) is a dialect-ignostic distributed locking tool that can be used with the popular ORM tool [Sequelize](https://github.com/sequelize/sequelize). It can be used to orchestrate database migrations in a distributed setting or as a general distributed locking capability for any use.
+Sequelize Distributed Lock (SDL) is a dialect-agnostic distributed locking tool that can be used with the popular ORM tool [Sequelize](https://github.com/sequelize/sequelize). It can be used to orchestrate database migrations in a distributed setting or as a general distributed locking capability for any use.
 
 Unlike other popular distributed locking tools that enforce a specific migration library or provide same-transaction locking, SDL can be used to lock across distributed nodes for the duration of your arbitriary action, whether it be another database write, a cleanup job, or even triggering a lambda function.
 

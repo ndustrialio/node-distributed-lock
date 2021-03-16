@@ -4,3 +4,5 @@ docker-compose.yaml
 .nvmrc
 .vscode
 node_modules
+.github/
+.eslint*
