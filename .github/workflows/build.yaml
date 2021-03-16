@@ -40,6 +40,7 @@ jobs:
         if: always()
         run: npm run stop:services
   release:
+    needs: build
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
     steps:
