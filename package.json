@@ -1,6 +1,6 @@
 {
   "name": "@ndustrial/sequelize-distributed-lock",
-  "version": "0.7.1",
+  "version": "0.7.2",
   "description": "Enables distributed locking for sequelize applications",
   "main": "lib/index.js",
   "scripts": {
