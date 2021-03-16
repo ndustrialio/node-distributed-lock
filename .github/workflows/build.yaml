@@ -57,14 +57,13 @@ jobs:
           preset: conventionalcommits
           output-file: false
       - name: Set new commit hash
-        run: echo "SHA=$(git rev-parse HEAD)" > $GITHUB_ENV
+        run: echo "SHA=$(git rev-parse HEAD)" >> $GITHUB_ENV
       - name: Create release
-        uses: actions/create-release@v1.1.4
+        uses: ncipollo/release-action@v1
         if: ${{ steps.version.outputs.skipped == 'false' }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.NIO_BOT_TOKEN }}
         with:
-          tag_name: ${{ steps.version.outputs.tag }}
-          release_name: ${{ steps.version.outputs.tag }}
+          token: ${{ secrets.NIO_BOT_TOKEN }}
+          tag: ${{ steps.version.outputs.tag }}
+          name: ${{ steps.version.outputs.tag }}
           body: ${{ steps.version.outputs.clean_changelog }}
-          commitish: ${{ env.SHA }}
+          commit: ${{ env.SHA }}
