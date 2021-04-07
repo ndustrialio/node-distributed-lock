@@ -79,6 +79,8 @@ The following values are passed in via the `params` argument.
 
 An option called `skipIfObtained` can be set to `true` in order to indicate that simultaneous lock calls on the same mutext should exit early if the lock mutex has already been obtained. This can be used to ensure that a single caller gains access to running the logic at any given time and subsequent callers will not run it immediately after.
 
+Callers that have exited early due to this flag will resolve a result equal to the symbol `DistributedLock.EXECUTION_SKIPPED`.
+
 ## License
 
 See the [LICENSE](./LICENSE).
