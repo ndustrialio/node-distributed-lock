@@ -26,7 +26,7 @@ describe('Postgres Lock', () => {
     const sleepMiliseconds = 500;
 
     const execute = async () => {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      await new Promise((resolve) => setTimeout(resolve, 500));
       return Date.now();
     };
 
@@ -43,5 +43,25 @@ describe('Postgres Lock', () => {
         expect(results[i] - sleepMiliseconds).toBeGreaterThanOrEqual(results[i - 1]); // should be at least sleepMiliseconds separated
       }
     }
+  });
+
+  test('lock with skipIfObtained set', async () => {
+    jest.setTimeout(30000);
+    const sleepMiliseconds = 500;
+
+    const execute = async () => {
+      await new Promise((resolve) => setTimeout(resolve, 5000));
+      return Date.now();
+    };
+
+    const locks = [...Array(5).keys()].map(() => new DistributedLock('test', { queryInterface: sequelize.queryInterface, lockTableName, skipIfObtained: true }));
+    const start = Date.now();
+    const results = await Promise.all(locks.map((lock) => lock.lock(execute, { sleepMiliseconds })));
+    const end = Date.now();
+    expect(end - start).toBeGreaterThan(sleepMiliseconds * 5);
+
+    expect(results).toHaveLength(5);
+    const executedResults = results.filter((result) => result !== DistributedLock.EXECUTION_SKIPPED);
+    expect(executedResults).toHaveLength(1);
   });
 });

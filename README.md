@@ -68,11 +68,16 @@ First and foremost, the `lockName` is used to ensure all distributed locks are l
 
 The following values are passed in via the `params` argument.
 
-| Configuration Name | Description                                        | Required | Default            |
-| ------------------ | -------------------------------------------------- |   :---:  |        :---:       |
-| queryInterface     | The sequelize QueryInterface                       | X        |                    |
-| lockTableName      | The name of the table that will hold locks         |          | `distributed_lock` |
-| lockTTLSeconds     | The time (seconds) after which locks should expire |          | 1200               |
+| Configuration Name | Description                                                         | Required | Default            |
+| ------------------ | ------------------------------------------------------------------- |   :---:  |        :---:       |
+| queryInterface     | The sequelize QueryInterface                                        | X        |                    |
+| lockTableName      | The name of the table that will hold locks                          |          | `distributed_lock` |
+| lockTTLSeconds     | The time (seconds) after which locks should expire                  |          | 1200               |
+| skipIfObtained     | Whether subsequent lock calls to an obtained lock should exit early |          | `false`            |
+
+### Single Execution
+
+An option called `skipIfObtained` can be set to `true` in order to indicate that simultaneous lock calls on the same mutext should exit early if the lock mutex has already been obtained. This can be used to ensure that a single caller gains access to running the logic at any given time and subsequent callers will not run it immediately after.
 
 ## License
 
