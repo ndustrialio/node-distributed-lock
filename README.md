@@ -15,7 +15,7 @@ Currently, the following database clients/ORMs are supported. Please open an iss
 | Database Client                                     | Supported |
 | --------------------------------------------------- |   :---:   |
 | [Sequelize](https://github.com/sequelize/sequelize) | X         |
-| [KnexJs](http://knexjs.org/)                        |           |
+| [KnexJs](http://knexjs.org/)                        | X         |
 
 Currently, the following dialects are supported. Please open an issue or contribute with your own PR to help grow the list:
 
