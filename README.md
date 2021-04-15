@@ -1,7 +1,7 @@
 # Node Distributed Lock
 
-[![Build Status](https://badgen.net/github/release/ndustrialio/sequelize-distributed-lock)](https://github.com/ndustrialio/sequelize-distributed-lock/actions?query=workflow%3ABuild)
-[![npm (stable)](https://badgen.net/npm/v/@ndustrial/sequelize-distributed-lock)](https://www.npmjs.com/package/@ndustrial/sequelize-distributed-lock)
+[![Build Status](https://badgen.net/github/release/ndustrialio/node-distributed-lock)](https://github.com/ndustrialio/node-distributed-lock/actions?query=workflow%3ABuild)
+[![npm (stable)](https://badgen.net/npm/v/@ndustrial/node-distributed-lock)](https://www.npmjs.com/package/@ndustrial/node-distributed-lock)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
 Node Distributed Lock (NDL) is a client- and dialect-agnostic distributed locking tool for NodeJS applications. It can be used to orchestrate database migrations in a distributed setting or as a general distributed locking capability for any use.
@@ -30,7 +30,7 @@ Currently, the following dialects are supported. Please open an issue or contrib
 ## Installation
 
 ```sh
-npm install @ndustrial/sequelize-distributed-lock
+npm install @ndustrial/node-distributed-lock
 ```
 
 ## Highlights
@@ -47,7 +47,7 @@ npm install @ndustrial/sequelize-distributed-lock
 ```js
 // index.js
 const Sequelize = require('sequelize');
-const DistributedLock = require('@ndustrialio/sequelize-distributed-lock');
+const DistributedLock = require('@ndustrialio/node-distributed-lock');
 
 const sequelize = new Sequelize({...});
 
@@ -70,7 +70,7 @@ importantLock
 ```js
 // index.js
 const KnexJs = require('knex');
-const DistributedLock = require('@ndustrialio/sequelize-distributed-lock');
+const DistributedLock = require('@ndustrialio/node-distributed-lock');
 
 const knex = new KnexJs({...});
 
