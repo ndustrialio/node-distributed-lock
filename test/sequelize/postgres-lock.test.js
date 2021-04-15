@@ -1,10 +1,10 @@
 const Sequelize = require('sequelize');
 const faker = require('faker');
-const DistributedLock = require('../lib');
+const DistributedLock = require('../../lib');
 
 const POSTGRES_CONNECTION = process.env.POSTGRES_CONNECTION || 'postgres://user:pass@localhost:5400/db';
 
-describe('Postgres Lock', () => {
+describe('Sequelize: Postgres Lock', () => {
   const lockTableName = `test_lock_${faker.internet.domainWord().replace(/-_/, '').toLowerCase()}`;
   let sequelize;
 
