@@ -1,24 +1,24 @@
-const Sequelize = require('sequelize');
+const KnexJs = require('knex');
 const faker = require('faker');
-const DistributedLock = require('../lib');
+const DistributedLock = require('../../lib');
 
 const POSTGRES_CONNECTION = process.env.POSTGRES_CONNECTION || 'postgres://user:pass@localhost:5400/db';
 
-describe('Postgres Lock', () => {
+describe('Knex: Postgres Lock', () => {
   const lockTableName = `test_lock_${faker.internet.domainWord().replace(/-_/, '').toLowerCase()}`;
-  let sequelize;
+  let knex;
 
   beforeAll(async () => {
-    sequelize = new Sequelize(POSTGRES_CONNECTION, {
-      dialect: 'postgres',
-      logging: () => {},
+    knex = new KnexJs({
+      client: 'pg',
+      connection: POSTGRES_CONNECTION,
     });
-    await sequelize.authenticate();
-    await sequelize.query(`DROP TABLE IF EXISTS ${lockTableName};`);
+    await knex.raw('SELECT 1+1 AS result');
+    await knex.raw(`DROP TABLE IF EXISTS ${lockTableName};`);
   });
 
   afterAll(async () => {
-    await sequelize.query(`DROP TABLE IF EXISTS ${lockTableName};`);
+    await knex.raw(`DROP TABLE IF EXISTS ${lockTableName};`);
   });
 
   test('lock', async () => {
@@ -30,7 +30,7 @@ describe('Postgres Lock', () => {
       return Date.now();
     };
 
-    const locks = [...Array(5).keys()].map(() => new DistributedLock('test', { queryInterface: sequelize.queryInterface, lockTableName }));
+    const locks = [...Array(5).keys()].map(() => new DistributedLock('test', { queryInterface: knex, lockTableName }));
     const start = Date.now();
     const results = await Promise.all(locks.map((lock) => lock.lock(execute, { sleepMiliseconds })));
     const end = Date.now();
@@ -54,7 +54,7 @@ describe('Postgres Lock', () => {
       return Date.now();
     };
 
-    const locks = [...Array(5).keys()].map(() => new DistributedLock('test', { queryInterface: sequelize.queryInterface, lockTableName, skipIfObtained: true }));
+    const locks = [...Array(5).keys()].map(() => new DistributedLock('test', { queryInterface: knex, lockTableName, skipIfObtained: true }));
     const start = Date.now();
     const results = await Promise.all(locks.map((lock) => lock.lock(execute, { sleepMiliseconds })));
     const end = Date.now();
