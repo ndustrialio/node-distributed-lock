@@ -23,7 +23,7 @@ describe('Knex: Postgres Lock', () => {
 
   test('lock', async () => {
     jest.setTimeout(30000);
-    const sleepMiliseconds = 500;
+    const sleepMilliseconds = 500;
 
     const execute = async () => {
       await new Promise((resolve) => setTimeout(resolve, 500));
@@ -32,22 +32,22 @@ describe('Knex: Postgres Lock', () => {
 
     const locks = [...Array(5).keys()].map(() => new DistributedLock('test', { queryInterface: knex, lockTableName }));
     const start = Date.now();
-    const results = await Promise.all(locks.map((lock) => lock.lock(execute, { sleepMiliseconds })));
+    const results = await Promise.all(locks.map((lock) => lock.lock(execute, { sleepMilliseconds })));
     const end = Date.now();
-    expect(end - start).toBeGreaterThan(sleepMiliseconds * 5);
+    expect(end - start).toBeGreaterThan(sleepMilliseconds * 5);
 
     results.sort();
     for (let i = 0; i < results.length; i++) {
       expect(end).toBeGreaterThan(results[i]);
       if (i > 0) {
-        expect(results[i] - sleepMiliseconds).toBeGreaterThanOrEqual(results[i - 1]); // should be at least sleepMiliseconds separated
+        expect(results[i] - sleepMilliseconds).toBeGreaterThanOrEqual(results[i - 1]); // should be at least sleepMilliseconds separated
       }
     }
   });
 
   test('lock with skipIfObtained set', async () => {
     jest.setTimeout(30000);
-    const sleepMiliseconds = 500;
+    const sleepMilliseconds = 500;
 
     const execute = async () => {
       await new Promise((resolve) => setTimeout(resolve, 5000));
@@ -56,9 +56,9 @@ describe('Knex: Postgres Lock', () => {
 
     const locks = [...Array(5).keys()].map(() => new DistributedLock('test', { queryInterface: knex, lockTableName, skipIfObtained: true }));
     const start = Date.now();
-    const results = await Promise.all(locks.map((lock) => lock.lock(execute, { sleepMiliseconds })));
+    const results = await Promise.all(locks.map((lock) => lock.lock(execute, { sleepMilliseconds })));
     const end = Date.now();
-    expect(end - start).toBeGreaterThan(sleepMiliseconds * 5);
+    expect(end - start).toBeGreaterThan(sleepMilliseconds * 5);
 
     expect(results).toHaveLength(5);
     const executedResults = results.filter((result) => result !== DistributedLock.EXECUTION_SKIPPED);
