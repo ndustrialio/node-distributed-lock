@@ -40,7 +40,7 @@
     "jest-when": "^3.2.1",
     "knex": "^0.95.4",
     "pg": "^8.5.1",
-    "sequelize": "^6.5.1"
+    "sequelize": "^6.6.5"
   },
   "directories": {
     "lib": "lib",
