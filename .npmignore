@@ -6,3 +6,6 @@ docker-compose.yaml
 node_modules
 .github/
 .eslint*
+jest.config.js
+tsconfig.json
+lib/

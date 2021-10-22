@@ -20,6 +20,7 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
       - run: npm install
+      - run: npm run build
       - uses: JS-DevTools/npm-publish@v1
         with:
           token: ${{ env.NPM_TOKEN }}
