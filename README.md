@@ -134,6 +134,8 @@ The following values are passed in via the `params` argument.
 | skipIfObtained     | Whether subsequent lock calls to an obtained lock should exit early |          | `false`            |
 
 **NOTE:** If you omit the `queryInterfaceName`, NDL will attempt to determine it based on the interface object.
+
+**NOTE:** You can specify a database schema for the lock table by passing it as a prefix to the `lockTableName` (i.e. `public.table`). This `schema` will be created if it does not exist.
 ### Single Execution
 
 An option called `skipIfObtained` can be set to `true` in order to indicate that simultaneous lock calls on the same mutext should exit early if the lock mutex has already been obtained. This can be used to ensure that a single caller gains access to running the logic at any given time and subsequent callers will not run it immediately after.

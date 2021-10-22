@@ -14,6 +14,7 @@ const clients = [
 
 describe('Postgres Lock', () => {
   const lockTableName = `test_lock_${faker.internet.domainWord().replace(/-_/, '').toLowerCase()}`;
+  const testSchema = `${faker.internet.domainWord().replace(/-_/, '').toLowerCase()}`;
 
   describe.each(clients)('using $name', ({ create, queryMethod = 'query', onClose }) => {
     let client;
@@ -21,10 +22,12 @@ describe('Postgres Lock', () => {
     beforeAll(async () => {
       client = await create({ dialect: 'postgres', connection: POSTGRES_CONNECTION });
       await client[queryMethod](`DROP TABLE IF EXISTS ${lockTableName};`);
+      await client[queryMethod](`DROP SCHEMA IF EXISTS ${testSchema} CASCADE;`);
     });
 
     afterAll(async () => {
       await client[queryMethod](`DROP TABLE IF EXISTS ${lockTableName};`);
+      await client[queryMethod](`DROP SCHEMA IF EXISTS ${testSchema} CASCADE;`);
       if (onClose) {
         await onClose(client);
       }
@@ -39,6 +42,29 @@ describe('Postgres Lock', () => {
       };
 
       const locks = [...Array(5).keys()].map(() => new DistributedLock('test', { queryInterface: client.queryInterface || client, lockTableName }));
+      const start = Date.now();
+      const results = await Promise.all(locks.map((lock) => lock.lock(execute, { sleepMilliseconds })));
+      const end = Date.now();
+      expect(end - start).toBeGreaterThan(sleepMilliseconds * 5);
+
+      results.sort();
+      for (let i = 0; i < results.length; i++) {
+        expect(end).toBeGreaterThan(results[i]);
+        if (i > 0) {
+          expect(results[i] - sleepMilliseconds).toBeGreaterThanOrEqual(results[i - 1]); // should be at least sleepMilliseconds separated
+        }
+      }
+    });
+
+    test('lock with a specified schema', async () => {
+      const sleepMilliseconds = 50;
+
+      const execute = async () => {
+        await new Promise((resolve) => setTimeout(resolve, 500));
+        return Date.now();
+      };
+
+      const locks = [...Array(5).keys()].map(() => new DistributedLock('test', { queryInterface: client.queryInterface || client, lockTableName: `${testSchema}.${lockTableName}` }));
       const start = Date.now();
       const results = await Promise.all(locks.map((lock) => lock.lock(execute, { sleepMilliseconds })));
       const end = Date.now();
