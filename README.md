@@ -16,6 +16,7 @@ Currently, the following database clients/ORMs are supported. Please open an iss
 | --------------------------------------------------- |   :---:   |
 | [Sequelize](https://github.com/sequelize/sequelize) | X         |
 | [KnexJs](http://knexjs.org/)                        | X         |
+| [node-postgres - Pool](https://node-postgres.com/)  | X         |
 
 Currently, the following dialects are supported. Please open an issue or contribute with your own PR to help grow the list:
 
@@ -80,6 +81,29 @@ const importantLogic = async () => {
 
 const importantLock = new DistributedLock('my-important-logic-lock', {
   queryInterface: knex
+});
+
+importantLock
+  .lock(importantLogic) // Ensures importantLogic is run by a single node at a time
+  .then(() => {
+    console.log('Done!');
+  });
+```
+
+### PG Pool
+```js
+// index.js
+const { Pool } = require('pg');
+const DistributedLock = require('@ndustrialio/node-distributed-lock');
+
+const pool = new Pool({...});
+
+const importantLogic = async () => {
+  // will never run at the same time
+}
+
+const importantLock = new DistributedLock('my-important-logic-lock', {
+  queryInterface: pool
 });
 
 importantLock
