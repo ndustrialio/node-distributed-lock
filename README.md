@@ -1,7 +1,7 @@
 # Node Distributed Lock
 
-[![Build Status](https://badgen.net/github/release/ndustrialio/node-distributed-lock)](https://github.com/ndustrialio/node-distributed-lock/actions?query=workflow%3ABuild)
-[![npm (stable)](https://badgen.net/npm/v/@ndustrial/node-distributed-lock)](https://www.npmjs.com/package/@ndustrial/node-distributed-lock)
+[![Build](https://github.com/ndustrialio/node-distributed-lock/actions/workflows/build.yaml/badge.svg)](https://github.com/ndustrialio/node-distributed-lock/actions/workflows/build.yaml)
+[![Package on npm](https://img.shields.io/npm/v/@ndustrial/node-distributed-lock.svg?style=flat)](https://www.npmjs.com/package/@ndustrial/node-distributed-lock)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
 Node Distributed Lock (NDL) is a client- and dialect-agnostic distributed locking tool for NodeJS applications. It can be used to orchestrate database migrations in a distributed setting or as a general distributed locking capability for any use.
