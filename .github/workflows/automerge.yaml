@@ -1,0 +1,22 @@
+name: Automerge
+
+permissions:
+  pull-requests: write
+  contents: write
+
+on:
+  pull_request:
+    types: [opened, synchronize, labeled, reopened]
+
+jobs:
+  pr:
+    if: contains(github.event.pull_request.labels.*.name, 'automerge')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Merge PR
+        run: |
+          gh pr merge --auto --squash --body="[ci skip]" "$PR_URL"
+          gh pr review --approve "$PR_URL"
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
