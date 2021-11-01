@@ -4,11 +4,11 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
-    reviewers:
-      - "ndustrialio/paas-team"
+    labels:
+      - automerge
   - package-ecosystem: "docker"
     directory: "/"
     schedule:
       interval: "weekly"
-    reviewers:
-      - "ndustrialio/paas-team"
+    labels:
+      - automerge
