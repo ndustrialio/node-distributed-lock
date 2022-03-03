@@ -37,6 +37,7 @@ describe('Postgres Lock', () => {
       const sleepMilliseconds = 50;
 
       const execute = async () => {
+        // eslint-disable-next-line no-promise-executor-return
         await new Promise((resolve) => setTimeout(resolve, 500));
         return Date.now();
       };
@@ -60,6 +61,7 @@ describe('Postgres Lock', () => {
       const sleepMilliseconds = 50;
 
       const execute = async () => {
+        // eslint-disable-next-line no-promise-executor-return
         await new Promise((resolve) => setTimeout(resolve, 500));
         return Date.now();
       };
@@ -83,6 +85,7 @@ describe('Postgres Lock', () => {
       const sleepMilliseconds = 50;
 
       const execute = async () => {
+        // eslint-disable-next-line no-promise-executor-return
         await new Promise((resolve) => setTimeout(resolve, 5000));
         return Date.now();
       };
