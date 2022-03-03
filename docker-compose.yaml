@@ -4,8 +4,13 @@ services:
     image: postgres
     restart: always
     ports:
-      - '5400:5432'
+      - 5400:5432
     environment:
       POSTGRES_DB: db
       POSTGRES_USER: user
       POSTGRES_PASSWORD: pass
+    healthcheck:
+      test: pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB
+      interval: 1s
+      timeout: 5s
+      retries: 30
