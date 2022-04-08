@@ -6,9 +6,3 @@ updates:
       interval: "weekly"
     labels:
       - automerge
-  - package-ecosystem: "docker"
-    directory: "/"
-    schedule:
-      interval: "weekly"
-    labels:
-      - automerge
