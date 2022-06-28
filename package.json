@@ -11,7 +11,8 @@
     "prebuild": "rimraf dist/",
     "build": "tsc",
     "postbuild": "copyfiles -u 1 \"lib/**/*.js\" -e \"lib/**/**.test.js\" \"dist\"",
-    "test": "jest --coverage --runInBand --forceExit"
+    "test": "jest --coverage --runInBand --forceExit",
+    "testagain": "node lib/test.js"
   },
   "repository": {
     "type": "git",
