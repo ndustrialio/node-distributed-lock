@@ -56,6 +56,7 @@ jobs:
           version-path: version
           preset: conventionalcommits
           output-file: false
+          skip-on-empty: false
       - name: Set new commit hash
         run: echo "SHA=$(git rev-parse HEAD)" >> $GITHUB_ENV
       - name: Create release
