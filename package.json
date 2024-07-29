@@ -31,7 +31,7 @@
   },
   "homepage": "https://github.com/ndustrialio/node-distributed-lock#readme",
   "dependencies": {
-    "@types/node": "^20.2.5",
+    "@types/node": "^22.0.0",
     "async-exit-hook": "^2.0.1",
     "debug": "^4.3.2",
     "uuid": "^10.0.0"
