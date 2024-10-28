@@ -34,7 +34,7 @@
     "@types/node": "^22.0.0",
     "async-exit-hook": "^2.0.1",
     "debug": "^4.3.2",
-    "uuid": "^10.0.0"
+    "uuid": "^11.0.1"
   },
   "devDependencies": {
     "copyfiles": "^2.4.1",
