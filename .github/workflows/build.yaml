@@ -36,7 +36,7 @@ jobs:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v5
       - name: Bump version
         uses: TriPSs/conventional-changelog-action@v3
         id: version
