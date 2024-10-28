@@ -1,4 +1,3 @@
-const faker = require('faker');
 const DistributedLock = require('../../lib');
 const knexClients = require('../interface/knex');
 const pgClients = require('../interface/pg');
@@ -13,8 +12,8 @@ const clients = [
 ];
 
 describe('Postgres Lock', () => {
-  const lockTableName = `test_lock_${faker.internet.domainWord().replace(/-_/, '').toLowerCase()}`;
-  const testSchema = `${faker.internet.domainWord().replace(/-_/, '').toLowerCase()}`;
+  const lockTableName = `test_lock_${(Math.random() + 1).toString(36).substring(7).toLowerCase()}`;
+  const testSchema = `${(Math.random() + 1).toString(36).substring(7).toLowerCase()}`;
 
   describe.each(clients)('using $name', ({ create, queryMethod = 'query', onClose }) => {
     let client;
