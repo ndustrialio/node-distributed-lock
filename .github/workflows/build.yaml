@@ -41,7 +41,7 @@ jobs:
         uses: TriPSs/conventional-changelog-action@v3
         id: version
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.NIO_BOT_TOKEN }}
           git-user-name: GitHub Actions
           git-user-email: action@github.com
           version-file: package.json,package-lock.json
