@@ -38,12 +38,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          token: ${{ secrets.NIO_BOT_PAT }}
+          token: ${{ secrets.NIO_BOT_TOKEN }}
       - name: Bump version
         uses: TriPSs/conventional-changelog-action@v5
         id: version
         with:
-          github-token: ${{ secrets.NIO_BOT_PAT }}
+          github-token: ${{ secrets.NIO_BOT_TOKEN }}
           git-user-name: GitHub Actions
           git-user-email: action@github.com
           version-file: package.json,package-lock.json
@@ -57,7 +57,7 @@ jobs:
         uses: ncipollo/release-action@v1
         if: ${{ steps.version.outputs.skipped == 'false' }}
         with:
-          token: ${{ secrets.NIO_BOT_PAT }}
+          token: ${{ secrets.NIO_BOT_TOKEN }}
           tag: ${{ steps.version.outputs.tag }}
           name: ${{ steps.version.outputs.tag }}
           body: ${{ steps.version.outputs.clean_changelog }}
