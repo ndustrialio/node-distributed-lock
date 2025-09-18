@@ -1,0 +1,29 @@
+name: Dependabot Alerts → Jira (scheduled)
+
+on:
+  schedule:
+- cron: '40 8 * * 1-5'
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+  security-events: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.run_id }}
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dependabot alerts → Jira (bulk)
+        uses: ndustrialio/actions/vulnerability-scan/dependabot@vulns-to-jira
+        with:
+          github-token: ${{ secrets.NIO_BOT_TOKEN }}
+          bulk-parallel: "12"        # tweak as you like
+          jira-base-url:  ${{ secrets.JIRA_BASE_URL }}
+          jira-email:     ${{ secrets.JIRA_EMAIL }}
+          jira-api-token: ${{ secrets.JIRA_API_TOKEN }}
+          jira-team-name: 'Graphiti Artists'
+          jira-assignee-account-id: "712020:5f7fecaa-5e02-4e98-adaa-3d280fef9d4f"
