@@ -13,7 +13,9 @@ const clients = [
 
 describe('Postgres Lock', () => {
   const lockTableName = `test_lock_${(Math.random() + 1).toString(36).substring(7).toLowerCase()}`;
-  const testSchema = `${(Math.random() + 1).toString(36).substring(7).toLowerCase()}`;
+  // Prefixed: an unquoted identifier may not start with a digit, and the random
+  // suffix sometimes does ("DROP SCHEMA IF EXISTS 15plv" is a syntax error).
+  const testSchema = `test_schema_${(Math.random() + 1).toString(36).substring(7).toLowerCase()}`;
 
   describe.each(clients)('using $name', ({ create, queryMethod = 'query', onClose }) => {
     let client;
