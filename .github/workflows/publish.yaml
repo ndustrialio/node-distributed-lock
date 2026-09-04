@@ -1,24 +1,43 @@
+# Publishes a tagged release to npm via Trusted Publishing (OIDC): no npm token.
+# npm trusts this exact workflow file for the package (CONTXT-22345).
+#
+# Runs when the release workflow creates a GitHub release. Re-run a failed
+# publish from the Actions tab (workflow_dispatch) with the release tag.
 name: Publish
 
 on:
-  workflow_dispatch:
   release:
-    types: [released]
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Release tag to publish (e.g. v1.2.3)
+        required: true
+        type: string
 
-env:
-  NPM_TOKEN: ${{ secrets.NIO_NPM_TOKEN }}
+permissions:
+  contents: read
+  id-token: write
 
 jobs:
   publish:
     runs-on: ubuntu-latest
+    # Matches the trusted publisher's environment on npm. Protection rules
+    # (tag-only deploys, reviewers) go on this environment in repo settings.
+    environment: npm
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.release.tag_name || inputs.tag }}
+      - uses: actions/setup-node@v4
         with:
           node-version-file: .nvmrc
           cache: npm
-      - run: npm install
+          registry-url: https://registry.npmjs.org
+      # npm >= 11.5.1 does OIDC; npm 12 needs a newer Node than .nvmrc pins.
+      - name: Use an npm that supports trusted publishing
+        run: npm install -g npm@11 && npm --version
+      - run: npm ci
       - run: npm run build
-      - uses: JS-DevTools/npm-publish@v1
-        with:
-          token: ${{ env.NPM_TOKEN }}
+      - name: Publish
+        run: npm publish
